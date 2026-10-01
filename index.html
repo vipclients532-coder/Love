@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Для моей любимой Ариши 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Marck+Script&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#ffd6e0;--rose:#f4a6bd;--gold:#d9a48f;--cream:#fff7ef;--lav:#e4d9ff;--warm:#fffdfa;--text:#6b4a57;--deep:#c2557a}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;color:var(--text);background:linear-gradient(160deg,var(--cream),var(--pink) 45%,var(--lav));background-attachment:fixed;background-size:220% 220%;animation:bgshift 24s ease-in-out infinite;overflow-x:hidden;line-height:1.6}
+section{position:relative;z-index:2;padding:90px 20px;max-width:1100px;margin:0 auto;text-align:center}
+h1,h2{font-family:'Marck Script',cursive;font-weight:400;color:var(--deep)}
+h2{font-size:clamp(2rem,6vw,3.2rem);margin-bottom:12px}
+.sub{font-family:'Caveat',cursive;font-size:1.6rem;margin-bottom:34px}
+/* Фон и курсор */
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.fl{position:absolute;bottom:-40px;opacity:0;animation:rise linear forwards}
+@keyframes rise{10%{opacity:.7}100%{transform:translate(var(--dx),-115vh) rotate(360deg);opacity:0}}
+.spark{position:fixed;z-index:9999;pointer-events:none;animation:sp .9s ease-out forwards}
+@keyframes sp{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+/* Scroll reveal */
+.rv{opacity:0;filter:blur(8px);transform:translateY(40px);transition:all .9s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;filter:none;transform:none}
+/* Кнопки */
+.btn{display:inline-block;text-decoration:none;position:relative;overflow:hidden;font:600 1rem 'Montserrat';border:0;border-radius:50px;padding:15px 34px;color:#fff;cursor:pointer;background:linear-gradient(135deg,var(--rose),var(--deep));box-shadow:0 6px 18px rgba(194,85,122,.3);animation:pulse 2.4s ease-in-out infinite;transition:.3s}
+.btn:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 12px 28px rgba(194,85,122,.5),0 0 22px var(--rose)}
+@keyframes pulse{50%{box-shadow:0 6px 30px rgba(194,85,122,.55)}}
+.bounce{display:inline-block;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px) rotate(6deg)}}
+/* Hero */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+#hero h1{font-size:clamp(2.4rem,9vw,5.5rem);line-height:1.15;min-height:2.4em}
+#hero .sub{max-width:560px;margin:20px 0 36px;font-size:1.8rem}
+.cur{border-right:3px solid var(--deep);animation:blink .8s infinite}
+@keyframes blink{50%{border-color:transparent}}
+/* Галерея */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.ph{background:var(--warm);padding:12px 12px 16px;border-radius:14px;box-shadow:0 8px 24px rgba(194,85,122,.18);transition:opacity .9s,filter .9s,transform .6s cubic-bezier(.2,.7,.2,1),rotate .6s,box-shadow .4s}
+.ph:nth-child(odd){rotate:-1.5deg}.ph:nth-child(even){rotate:1.5deg}
+.ph:hover{rotate:0deg;transform:translateY(-8px) scale(1.03);box-shadow:0 18px 38px rgba(194,85,122,.35)}
+.ph .im{overflow:hidden;border-radius:8px;aspect-ratio:4/5;background:linear-gradient(135deg,var(--pink),var(--lav));display:flex;align-items:center;justify-content:center;font-size:3rem}
+.ph img{width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform .6s}
+.ph:hover img{transform:scale(1.1)}
+.ph p{font-family:'Caveat',cursive;font-size:1.5rem;margin-top:10px}
+/* Flip cards */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
+.card{perspective:900px;height:200px;cursor:pointer}
+.in{position:relative;width:100%;height:100%;transition:transform .8s;transform-style:preserve-3d}
+.card:hover .in,.card.fl2 .in{transform:rotateY(180deg)}
+.fc,.bk{position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;display:flex;align-items:center;justify-content:center;padding:18px;box-shadow:0 8px 22px rgba(194,85,122,.2)}
+.fc{background:var(--warm);font-family:'Caveat';font-size:1.7rem;font-weight:700;color:var(--deep)}
+.bk{background:linear-gradient(135deg,var(--pink),var(--lav));transform:rotateY(180deg);font-size:1rem}
+/* Игра */
+#arena{position:relative;height:340px;max-width:620px;margin:18px auto;border-radius:24px;background:rgba(255,255,255,.5);border:2px dashed var(--rose);overflow:hidden;touch-action:manipulation}
+.it{position:absolute;top:0;left:0;font-size:2.4rem;padding:6px;cursor:pointer;user-select:none;-webkit-user-select:none;will-change:transform}
+.pt{position:absolute;font-weight:700;color:var(--deep);pointer-events:none;animation:pts .8s forwards}
+@keyframes pts{to{transform:translateY(-50px);opacity:0}}
+.hud{font-size:1.3rem;font-weight:600}
+/* Комплименты */
+#comp{font-family:'Caveat';font-size:2rem;color:var(--deep);min-height:100px;margin-top:24px}
+/* Конверт */
+.env{position:relative;width:min(320px,90%);height:210px;margin:60px auto 0;cursor:pointer}
+.eb{position:absolute;inset:0;background:var(--rose);border-radius:8px;box-shadow:0 10px 26px rgba(194,85,122,.3);z-index:3;clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%)}
+.eb:after{content:'';position:absolute;inset:0;background:var(--gold);clip-path:polygon(0 100%,50% 40%,100% 100%);opacity:.6}
+.flap{position:absolute;top:0;left:0;width:100%;height:55%;background:var(--gold);transform-origin:top;transition:transform .7s;clip-path:polygon(0 0,100% 0,50% 100%);z-index:4}
+.env.open .flap{transform:rotateX(180deg);z-index:1}
+.letter{position:absolute;left:6%;width:88%;top:10px;height:90%;background:var(--warm);border-radius:8px;padding:18px;font-family:'Caveat';font-size:1.25rem;line-height:1.3;transition:all 1s .4s;z-index:2;overflow:hidden;color:var(--text)}
+.env.open .letter{top:-190px;height:300px;z-index:5;box-shadow:0 10px 30px rgba(0,0,0,.15);overflow:auto}
+.env.open{margin-bottom:150px}
+/* Секрет */
+input{font:1rem 'Montserrat';padding:14px 20px;border-radius:50px;border:2px solid var(--rose);outline:0;margin:0 6px 12px;background:var(--warm);color:var(--text);width:min(260px,90%)}
+input:focus{box-shadow:0 0 14px var(--rose)}
+#err{min-height:28px;color:var(--deep);font-weight:600}
+/* Таймер */
+.tm{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:46px}
+.tm div{background:var(--warm);border-radius:18px;padding:16px 10px;min-width:78px;box-shadow:0 6px 18px rgba(194,85,122,.2)}
+.tm b{display:block;font-size:2.1rem;color:var(--deep);transition:transform .25s}
+.tm b.t{transform:scale(1.25)}
+.tm span{font-size:.8rem}
+.giant{font-size:clamp(1.3rem,5vw,2.1rem);padding:26px 50px}
+/* Модалка */
+.modal{position:fixed;inset:0;z-index:10000;background:rgba(107,74,87,.55);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.mb{background:var(--warm);border-radius:26px;padding:30px;max-width:520px;width:100%;text-align:center;animation:pop .5s cubic-bezier(.2,1.5,.4,1)}
+.mb video{width:100%;border-radius:14px;margin:14px 0;background:#000}
+.mb h3{font-family:'Marck Script';font-size:2rem;color:var(--deep);font-weight:400}
+@keyframes pop{from{transform:scale(.5);opacity:0}}
+canvas#cf{position:fixed;inset:0;z-index:10001;pointer-events:none}
+footer{position:relative;z-index:2;text-align:center;padding:30px;font-family:'Caveat';font-size:1.4rem}
+
+@keyframes bgshift{50%{background-position:100% 100%}}
+#blobs{position:absolute;inset:-10% 0;will-change:transform}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:drift 22s ease-in-out infinite alternate}
+.b1{width:340px;height:340px;background:#ffc2d4;left:-80px;top:8%}
+.b2{width:420px;height:420px;background:#d9ccff;right:-120px;top:38%;animation-duration:28s}
+.b3{width:300px;height:300px;background:#ffe3c8;left:30%;top:70%;animation-duration:25s}
+@keyframes drift{to{transform:translate(60px,-80px) scale(1.2)}}
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--rose),var(--deep));z-index:10002;border-radius:0 3px 3px 0}
+/* Переливающиеся заголовки и рисующаяся линия */
+h2,#hero h1{background:linear-gradient(90deg,var(--deep),var(--gold),var(--rose),var(--deep));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 7s linear infinite}
+@keyframes shine{to{background-position:-300% 0}}
+h2::after{content:'';display:block;height:3px;width:0;margin:10px auto 0;border-radius:3px;background:linear-gradient(90deg,var(--rose),var(--gold));transition:width 1.2s .5s cubic-bezier(.2,.7,.2,1)}
+h2.on::after{width:90px}
+.cur{-webkit-text-fill-color:initial}
+/* Блеск на кнопках */
+.btn::after{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:left .7s}
+.btn:hover::after{left:130%}
+.btn:active{transform:scale(.96)}
+/* Появление главного экрана */
+.hero-in{opacity:0;transform:translateY(26px);filter:blur(6px);transition:all 1.3s cubic-bezier(.2,.7,.2,1)}
+.hero-in.go{opacity:1;transform:none;filter:none}
+/* Музыка */
+#mus{position:fixed;top:max(14px,env(safe-area-inset-top));right:14px;z-index:10003;width:50px;height:50px;border-radius:50%;border:0;cursor:pointer;background:rgba(255,255,255,.8);backdrop-filter:blur(8px);box-shadow:0 4px 16px rgba(194,85,122,.35);display:flex;align-items:center;justify-content:center;transition:transform .3s}
+#mus:hover{transform:scale(1.12) rotate(-6deg)}
+.eq{display:flex;align-items:flex-end;gap:3px;height:20px}
+.eq i{width:4px;height:6px;background:var(--deep);border-radius:2px}
+#mus.on .eq i{animation:eq 1s ease-in-out infinite}
+#mus.on .eq i:nth-child(2){animation-delay:.25s}#mus.on .eq i:nth-child(3){animation-delay:.5s}
+@keyframes eq{50%{height:20px}}
+#mus .off{display:none;font-size:1.3rem}
+#mus:not(.on) .eq{display:none}#mus:not(.on) .off{display:block}
+#mhint{position:fixed;top:max(26px,calc(env(safe-area-inset-top) + 12px));right:74px;z-index:10003;font:600 .85rem 'Montserrat';color:var(--deep);background:rgba(255,255,255,.85);padding:5px 12px;border-radius:20px;transition:opacity .6s;animation:bob 2.5s ease-in-out infinite}
+#mhint.hide{opacity:0;pointer-events:none}
+/* Telegram */
+.plane{font-size:3rem;display:inline-block;animation:fly 3.5s ease-in-out infinite}
+@keyframes fly{0%,100%{transform:translate(0,0) rotate(-8deg)}50%{transform:translate(18px,-14px) rotate(6deg)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="bg"><div id="blobs"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div></div>
+<div id="prog"></div>
+<audio id="aud" src="music.mp3" loop preload="auto"></audio>
+<span id="mhint">Музыка 🎶</span>
+<button id="mus" aria-label="Включить или выключить музыку" title="Музыка"><span class="eq"><i></i><i></i><i></i></span><span class="off">🔇</span></button>
+<canvas id="cf"></canvas>
+
+<!-- ГЛАВНЫЙ ЭКРАН -->
+<section id="hero">
+  <div class="bounce">🐱 💖 🐰</div>
+  <h1><span id="typed"></span><span class="cur"></span></h1>
+  <p class="sub">Котёнок, Зайка, Ариша — ты моё самое тёплое место на земле ✨</p>
+  <button class="btn" onclick="document.getElementById('gallery').scrollIntoView()">Начать наше путешествие</button>
+</section>
+
+<!-- ГАЛЕРЕЯ: замени photo1.jpg … photo6.jpg на свои файлы (положи рядом с index.html) и поправь подписи (сейчас 9 фото) -->
+<section id="gallery">
+  <h2 class="rv">Наша история в фото</h2>
+  <p class="sub rv">Каждый кадр — маленькое «люблю» 📸</p>
+  <div class="grid" id="photos"></div>
+</section>
+
+<!-- ПРИЧИНЫ -->
+<section>
+  <h2 class="rv">Почему я тебя люблю</h2>
+  <p class="sub rv">Нажми или наведи на карточку 💌</p>
+  <div class="fgrid" id="cards"></div>
+</section>
+
+<!-- ИГРЫ -->
+<section>
+  <h2 class="rv">Игра «Ловец сердечек и вкусняшек»</h2>
+  <p class="sub rv">У тебя 15 секунд — лови 💖 🐱 🐰</p>
+  <div class="hud rv">Очки: <span id="score">0</span> · Время: <span id="time">15</span></div>
+  <div id="arena"></div>
+  <p id="gres" style="font-family:Caveat;font-size:1.8rem;color:var(--deep);min-height:40px"></p>
+  <button class="btn" id="start">Играть!</button>
+</section>
+
+<section>
+  <h2 class="rv">Генератор комплиментов</h2>
+  <button class="btn rv" id="compBtn">Нажми, если скучаешь 🥺</button>
+  <p id="comp"></p>
+</section>
+
+<!-- TELEGRAM: ссылка на твой аккаунт -->
+<section>
+  <div class="plane">✈️</div>
+  <h2 class="rv">Если скучно — я рядом</h2>
+  <p class="sub rv">Если тебе скучно, ты всегда можешь написать мне 💌</p>
+  <a class="btn rv" href="https://t.me/wwqwwweewqweqqq" target="_blank" rel="noopener">Написать мне в Telegram</a>
+</section>
+
+<!-- КОНВЕРТ: текст письма правь в блоке .letter -->
+<section>
+  <h2 class="rv">Записочка для тебя</h2>
+  <p class="sub rv">Нажми на конверт 💌</p>
+  <div class="env" id="env">
+    <div class="letter">Моя Ариша, Котёнок, Зайка!<br>Желаю тебе тёплых дней, смелых мечт и поводов улыбаться каждое утро. Знай: я всегда рядом, горжусь тобой и очень-очень тебя люблю. 💖<br><br>Твой навсегда</div>
+    <div class="flap"></div><div class="eb"></div>
+  </div>
+</section>
+
+<!-- СЕКРЕТ -->
+<section>
+  <h2 class="rv">Секретное послание для Зайки</h2>
+  <p class="sub rv">Введи секретное слово 🔐</p>
+  <input id="code" placeholder="Секретное слово..."><button class="btn" id="codeBtn">Открыть</button>
+  <p id="err"></p>
+</section>
+
+<!-- ФИНАЛ: поменяй START на дату начала ваших отношений -->
+<section>
+  <h2 class="rv">Мы вместе уже...</h2>
+  <div class="tm rv"><div><b id="d">0</b><span>дней</span></div><div><b id="h">0</b><span>часов</span></div><div><b id="m">0</b><span>минут</span></div><div><b id="s">0</b><span>секунд</span></div></div>
+  <button class="btn giant" id="hug">Отправить обнимашку 🤗</button>
+</section>
+<footer>С любовью, для Ариши 💖🐱🐰✨</footer>
+
+<!-- Модальные окна -->
+<div class="modal" id="mSecret"><div class="mb"><h3>Ты угадала, Зайка! 🎉</h3>
+  <!-- ВИДЕО: положи secret-video.mp4 рядом с index.html -->
+  <video controls playsinline src="secret-video.mp4"></video>
+  <p>Это видео только для тебя 😏💖</p><br><button class="btn" data-close>Закрыть</button></div></div>
+<div class="modal" id="mHug"><div class="mb"><h3>Обнимашка для Ариши отправлена! 🤗💖</h3><br><button class="btn" data-close>Ещё раз ❤️</button></div></div>
+
+<script>
+/* ====== НАСТРОЙКИ ====== */
+const START = new Date('2025-06-25T00:00:00'); // ← дата начала отношений
+const SECRET = 'жопа';                          // ← секретное слово (регистр не важен)
+const PHOTOS = [ // ← файл и комплимент-подпись
+  ['photo1.jpg','Ты самая красивая 💖'],['photo2.jpg','Моя любимая улыбка ✨'],['photo3.jpg','Ты мой Котёнок 🐱'],
+  ['photo4.jpg','Моя Зайка 🐰'],['photo5.jpg','С тобой всё лучше 🥰'],['photo6.jpg','Ты — моё счастье 🌷'],
+  ['photo7.jpg','Ты греешь моё сердце 🔥'],['photo8.jpg','Мне так повезло с тобой 🍀'],['photo9.jpg','Люблю тебя, Ариша 💞']];
+const REASONS = [
+  ['Твоя улыбка','Ты включаешь свет во всём моём мире ☀️'],
+  ['Твоя доброта','Ты умеешь согреть одним словом 🌷'],
+  ['Твой смех','Я готов шутить вечно, лишь бы слышать твой смех 🥰'],
+  ['Ты — Котёнок','Мурчишь в моём сердце круглые сутки 🐱'],
+  ['Ты — Зайка','Самая милая и прыгучая радость 🐰'],
+  ['Ты рядом','С тобой даже обычный день — праздник ✨'],
+  ['Твоя сила','Ты вдохновляешь меня становиться лучше 💪'],
+  ['Просто ты','Ариша, ты — моё «всё». Люблю тебя 💖']];
+const COMPS = ['Ариша, ты улыбаешься — и мир становится ярче!','Ты мой самый любимый Зайка 🐰','Котёнок, ты делаешь мои дни теплее 🐱','Ты самая красивая — и снаружи, и внутри 💖','Скучаю по твоим обнимашкам 🤗','С тобой мне везде как дома 🏡','Ты — моё чудо, Ариша ✨'];
+
+const $=s=>document.querySelector(s), rnd=(a,b)=>a+Math.random()*(b-a);
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* ====== Фон: летящие сердечки/звёзды ====== */
+const ICONS=['💖','✨','⭐','💗','💕','🌸'];
+setInterval(()=>{ if(document.hidden||reduce) return;
+  const e=document.createElement('div'); e.className='fl'; e.textContent=ICONS[Math.floor(Math.random()*ICONS.length)];
+  e.style.cssText=`left:${rnd(0,100)}vw;font-size:${rnd(14,34)}px;animation-duration:${rnd(8,15)}s;--dx:${rnd(-80,80)}px`;
+  $('#bg').appendChild(e); setTimeout(()=>e.remove(),15000);
+},500);
+
+/* ====== Волшебный курсор / тап ====== */
+let last=0;
+function sparkle(x,y,n=1,big){
+  for(let i=0;i<n;i++){const s=document.createElement('div'); s.className='spark';
+    s.textContent=['💖','✨','💗','⭐'][Math.floor(Math.random()*4)];
+    s.style.cssText=`left:${x}px;top:${y}px;font-size:${big?rnd(16,28):rnd(10,18)}px;--dx:${rnd(-(big?90:30),big?90:30)}px;--dy:${rnd(big?-100:-10,big?40:40)}px`;
+    document.body.appendChild(s); setTimeout(()=>s.remove(),900);}
+}
+addEventListener('pointermove',e=>{const t=Date.now(); if(t-last>60&&!reduce){last=t;sparkle(e.clientX,e.clientY)}});
+addEventListener('pointerdown',e=>sparkle(e.clientX,e.clientY,4));
+/* Взрыв сердечек при клике на любую кнопку */
+document.addEventListener('click',e=>{ if(e.target.closest('.btn')) sparkle(e.clientX,e.clientY,12,true)});
+
+/* ====== Конфетти (свой canvas, без библиотек) ====== */
+const cv=$('#cf'),cx=cv.getContext('2d'); let parts=[],run=false;
+function fit(){cv.width=innerWidth;cv.height=innerHeight} fit(); addEventListener('resize',fit);
+function confetti(n=120,hearts){
+  const C=['#f4a6bd','#ffd6e0','#e4d9ff','#d9a48f','#c2557a','#fff'];
+  for(let i=0;i<n;i++) parts.push({x:hearts?rnd(0,cv.width):cv.width/2,y:hearts?cv.height+10:cv.height/2,vx:rnd(-8,8),vy:hearts?rnd(-18,-8):rnd(-16,-2),g:.3,r:rnd(5,11),c:C[i%6],h:hearts,a:1,rot:rnd(0,6)});
+  if(!run){run=true;loop()}
+}
+function loop(){cx.clearRect(0,0,cv.width,cv.height);
+  parts=parts.filter(p=>p.a>0.02&&p.y<cv.height+30);
+  parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.vx*=.99;p.a-=.006;p.rot+=.1;cx.globalAlpha=p.a;cx.fillStyle=p.c;
+    if(p.h){cx.font=p.r*3+'px serif';cx.fillText('💖',p.x,p.y)}else{cx.save();cx.translate(p.x,p.y);cx.rotate(p.rot);cx.fillRect(-p.r/2,-p.r/2,p.r,p.r*.6);cx.restore()}});
+  cx.globalAlpha=1; parts.length?requestAnimationFrame(loop):(run=false,cx.clearRect(0,0,cv.width,cv.height));
+}
+
+/* ====== Печатающийся заголовок ====== */
+const title='Для моей любимой Ариши'; let ti=0;
+(function type(){ $('#typed').textContent=title.slice(0,ti); if(ti++<title.length) setTimeout(type,90)})();
+
+/* ====== Галерея (если фото нет — красивая заглушка) ====== */
+$('#photos').innerHTML=PHOTOS.map(([f,c])=>`<figure class="ph rv"><div class="im"><img src="${f}" alt="${c}" onerror="this.parentNode.textContent='🐱💖'"></div><p>${c}</p></figure>`).join('');
+
+/* ====== Карточки ====== */
+$('#cards').innerHTML=REASONS.map(([a,b],i)=>`<div class="card rv"><div class="in"><div class="fc">${a}</div><div class="bk">${b}</div></div></div>`).join('');
+document.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('fl2')));
+
+
+/* ====== Шапка: прогресс скролла + параллакс фона ====== */
+let tick2=false;
+addEventListener('scroll',()=>{ if(tick2) return; tick2=true; requestAnimationFrame(()=>{
+  const y=scrollY, max=document.documentElement.scrollHeight-innerHeight;
+  $('#prog').style.width=(max>0?y/max*100:0)+'%';
+  $('#blobs').style.transform='translateY('+(-y*.12)+'px)'; tick2=false})},{passive:true});
+
+/* ====== Плавное появление главного экрана ====== */
+document.querySelectorAll('#hero h1,#hero .sub,#hero .btn').forEach((el,i)=>{
+  el.classList.add('hero-in'); el.style.transitionDelay=(.3+i*.45)+'s';
+  setTimeout(()=>el.classList.add('go'),50);
+  setTimeout(()=>{el.classList.remove('hero-in','go');el.style.transitionDelay=''},3500)});
+
+/* ====== Фоновая музыка (файл music.mp3 рядом с index.html) ====== */
+const aud=$('#aud'), mus=$('#mus'); aud.volume=.45; let userOff=false, resume=false;
+const ui=()=>{mus.classList.toggle('on',!aud.paused)};
+const go=()=>aud.play().then(ui).catch(ui);
+mus.addEventListener('click',e=>{ e.stopPropagation();
+  if(aud.paused){userOff=false;go()}else{userOff=true;aud.pause();ui()}
+  $('#mhint').classList.add('hide')});
+// Браузеры не разрешают автозапуск звука — стартуем при первом касании/клике
+function firstTap(e){ if(e.target.closest&&e.target.closest('#mus')) return;
+  ['pointerdown','keydown'].forEach(n=>removeEventListener(n,firstTap));
+  $('#mhint').classList.add('hide'); if(!userOff&&aud.paused) go()}
+['pointerdown','keydown'].forEach(n=>addEventListener(n,firstTap));
+setTimeout(()=>$('#mhint').classList.add('hide'),9000);
+// На время секретного видео музыка ставится на паузу
+const sv=$('#mSecret video');
+sv.addEventListener('play',()=>{ if(!aud.paused){aud.pause();resume=true;ui()}});
+['pause','ended'].forEach(n=>sv.addEventListener(n,()=>{ if(resume&&!userOff){aud.play();resume=false;ui()}}));
+
+/* ====== Scroll reveal (наблюдаем после генерации контента) ====== */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const t=e.target;t.classList.add('on');io.unobserve(t);setTimeout(()=>t.style.transitionDelay='',1800)}}),{threshold:.12});
+document.querySelectorAll('.grid,.fgrid').forEach(g=>[...g.children].forEach((c,i)=>c.style.transitionDelay=(i%3)*.14+'s'));
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* ====== Мини-игра (движение через JS — работает везде, даже при «уменьшении анимации») ====== */
+let score=0,left=15,timer,raf,playing=false,items=[];
+$('#start').onclick=()=>{ if(playing) return; playing=true; score=0; left=15; items=[];
+  $('#score').textContent=0; $('#time').textContent=15; $('#gres').textContent='';
+  const a=$('#arena'); a.innerHTML='';
+  let lastT=performance.now(), acc=0;
+  function spawn(){ const e=document.createElement('div'); e.className='it';
+    e.textContent=['💖','🐱','🐰','💗'][Math.floor(Math.random()*4)];
+    e.style.left=rnd(2,84)+'%'; e.style.transform='translateY(-60px)';
+    const it={el:e,y:-60,v:rnd(110,210)};
+    e.addEventListener('pointerdown',ev=>{ ev.preventDefault(); ev.stopPropagation(); if(!playing) return;
+      score++; $('#score').textContent=score;
+      const p=document.createElement('div'); p.className='pt'; p.textContent='+1';
+      p.style.left=e.offsetLeft+'px'; p.style.top=it.y+'px'; a.appendChild(p); setTimeout(()=>p.remove(),800);
+      sparkle(ev.clientX,ev.clientY,3); e.remove(); items=items.filter(x=>x!==it)});
+    a.appendChild(e); items.push(it)}
+  function frame(t){ if(!playing) return;
+    const dt=Math.min(50,t-lastT)/1000; lastT=t; acc+=dt; if(acc>.55){acc=0;spawn()}
+    const H=a.clientHeight;
+    items=items.filter(it=>{ it.y+=it.v*dt; if(it.y>H){it.el.remove();return false}
+      it.el.style.transform='translateY('+it.y+'px)'; return true});
+    raf=requestAnimationFrame(frame)}
+  raf=requestAnimationFrame(frame);
+  timer=setInterval(()=>{ $('#time').textContent=--left;
+    if(left<=0){ clearInterval(timer); cancelAnimationFrame(raf); playing=false; items=[]; a.innerHTML='';
+      const msg = score===0 ? 'Ничего страшного, Котёнок, попробуй ещё раз 🐱'
+        : score<10 ? 'Уже лучше, молодец! 🐰 (поймала: '+score+')'
+        : 'Умничка, моя любименькая! 💖 (поймала: '+score+')';
+      $('#gres').textContent=msg; if(score>0) confetti(score>=10?180:80)}},1000)};
+
+/* ====== Комплименты ====== */
+let ci=-1;
+$('#compBtn').onclick=()=>{let n; do{n=Math.floor(Math.random()*COMPS.length)}while(n===ci&&COMPS.length>1); ci=n; $('#comp').textContent=COMPS[n]; confetti(100)};
+
+/* ====== Конверт ====== */
+$('#env').onclick=()=>$('#env').classList.toggle('open');
+
+/* ====== Секретный код ====== */
+function checkCode(){ const v=$('#code').value.trim().toLowerCase();
+  if(v===SECRET){ $('#err').textContent=''; $('#mSecret').classList.add('show'); confetti(200) }
+  else $('#err').textContent='Хмм, Котёнок, ты не угадала! Попробуй еще 😉'}
+$('#codeBtn').onclick=checkCode; $('#code').onkeydown=e=>{if(e.key==='Enter')checkCode()};
+
+/* ====== Таймер «вместе» ====== */
+const prev={};
+function tick(){ let t=Math.max(0,Math.floor((Date.now()-START)/1000));
+  const v={d:Math.floor(t/86400),h:Math.floor(t%86400/3600),m:Math.floor(t%3600/60),s:t%60};
+  for(const k in v){ const el=$('#'+k); if(prev[k]!==v[k]){el.textContent=v[k];el.classList.add('t');setTimeout(()=>el.classList.remove('t'),250);prev[k]=v[k]}}}
+tick(); setInterval(tick,1000);
+
+/* ====== Обнимашка ====== */
+$('#hug').onclick=()=>{ confetti(160,true); setTimeout(()=>confetti(160,true),400); setTimeout(()=>confetti(160,true),800); $('#mHug').classList.add('show')};
+
+/* ====== Закрытие окон ====== */
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{
+  if(e.target===m||e.target.hasAttribute('data-close')){m.classList.remove('show');const v=m.querySelector('video');v&&v.pause()}}));
+</script>
+</body>
+</html>
